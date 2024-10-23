@@ -25,8 +25,8 @@ class ConfirmPassword
   final StrongPassword original;
 
   @override
-  ConfirmPasswordValidationError? validator(String value) {
-    if (value.isEmpty) {
+  ConfirmPasswordValidationError? validator(String? value) {
+    if (value == null || value.isEmpty) {
       return ConfirmPasswordValidationError.empty;
     }
     if (value != original.value) {

@@ -25,8 +25,8 @@ class StrongPassword extends FormzInput<String, StrongPasswordValidationError> {
       RegExp(r'(?=.*[a-z])(?=.*[A-Z])\w+');
 
   @override
-  StrongPasswordValidationError? validator(String value) {
-    if (value.isEmpty) {
+  StrongPasswordValidationError? validator(String? value) {
+    if (value == null || value.isEmpty) {
       return StrongPasswordValidationError.empty;
     }
     if (value.length < 9 ||

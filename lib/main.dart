@@ -31,6 +31,10 @@ class MyApp extends StatelessWidget {
             borderSide: BorderSide(color: Colors.cyan, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
         ),
       ),
       home: const MyHomePage(title: 'Formz Demo'),
@@ -114,9 +118,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
                   decoration: const InputDecoration(labelText: 'Email'),
-                  validator: (_) =>
+                  validator: (value) =>
                       _signupFormState.asyncEmailError ??
-                      _signupFormState.email.error?.message(),
+                      _signupFormState.email.validator(value)?.message(),
                   onChanged: (value) {
                     setState(() {
                       _signupFormState = _signupFormState.copyWith(
@@ -136,7 +140,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 obscureText: true,
                 autocorrect: false,
                 decoration: const InputDecoration(labelText: 'Password'),
-                validator: (_) => _signupFormState.password.error?.message(),
+                validator: (value) =>
+                    _signupFormState.password.validator(value)?.message(),
                 onChanged: (value) {
                   setState(() {
                     _signupFormState = _signupFormState.copyWith(
@@ -155,8 +160,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 autocorrect: false,
                 decoration:
                     const InputDecoration(labelText: 'Confirm Password'),
-                validator: (_) =>
-                    _signupFormState.confirmPassword.error?.message(),
+                validator: (value) => _signupFormState.confirmPassword
+                    .validator(value)
+                    ?.message(),
                 onChanged: (value) {
                   setState(() {
                     _signupFormState = _signupFormState.copyWith(
